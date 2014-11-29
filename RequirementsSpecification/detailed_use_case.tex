@@ -1,0 +1,96 @@
+\subsection{Detailed use case}
+
+\begin{tabular}{|p{16.5cm}|}
+\hline
+\textbf{Name:} Subscribe \vline   \textbf{ Actors:} User | Payment system \\ \hline
+\textbf{Pre-condition:} User has created account. Connection with payment system is up.\\ \hline
+\textbf{Post-condition:} Payment system will either accept or decline the User information input, \\and then send the appropriate response to database. \\ \hline
+\textbf{Trigger: } User wants to upgrade the account to a paid subscription. \\ \hline
+\textbf{Event flow: }
+\begin{enumerate}
+	\item The user requests the subscription page.
+	\item User fills out and submits the necessary payment information:
+	\begin{enumerate}
+		\item First and Last name
+		\item Card number
+		\item Expiration date
+		\item Card Verification Value
+	\end{enumerate}
+	\item The information is encrypted and sent over a secure connection to the payment system.
+	\item Payment system recieves and decrypts the information.
+	\item Payment system executes the necesarry verifications and confirmations.
+	\item The appropriate response is sent back to the user
+\end{enumerate}
+\\ \hline
+\textbf{Event variation: }
+\begin{enumerate}
+	\item User has not created an account:
+	\begin{enumerate}
+ 		\item The requested subscription page will not be displayed.
+		\item The user will be sent to the create account page.
+	\end{enumerate}
+	\item User submits invalid information that does not fit the input template:
+	\begin{enumerate}
+ 		\item The information will not be sent to the payment system.
+		\item The subscription page will be reloaded and an error message will be displayed.
+	\end{enumerate}
+	\item  The payment system response is positive and the transaction went without problems:
+	\begin{enumerate}
+ 		\item  The user's status is updated.
+	\end{enumerate}
+	\item  The payment system response is negative and the transaction did not go through:
+	\begin{enumerate}
+ 		\item  An error message will be displayed and the process will be terminated.
+		\item The subscription page will be reloaded for the user.
+	\end{enumerate}
+\end{enumerate}
+
+\\ \hline
+\end{tabular} 
+
+\begin{tabular}{|p{16.5cm}|}
+\hline
+\textbf{Name:} Backup database \vline   \textbf{ Actors:} Backup service | Admin\\ \hline
+\textbf{Pre-condition:} There is an already existing database.\\ \hline
+\textbf{Post-condition:} A full backup of the database is created and stored separatly from the original \\ \hline
+\textbf{Trigger: } The backup serive requests a backup on regular intervals | The admin manually requests a backup. \\ \hline
+\textbf{Event flow: }
+\begin{enumerate}
+	\item Either the admin or the backup service requests to run a backup.
+	\item The backup service checks if any changes had been made since last backup.
+	\item The backup service checks if there is enough disk space for the backup to be written to disk.
+	\item The backup service creates an exact copy of current database and stores to the appropriate disk with the current timestamp.
+\end{enumerate}
+\\ \hline
+\textbf{Event variation: }
+\begin{enumerate}
+	\item No existing database can be found:
+	\begin{enumerate}
+ 		\item The process will be terminated.
+		\item An error message will be written to the log.
+	\end{enumerate}
+	\item No changes has been made:
+	\begin{enumerate}
+ 		\item The process will be terminated.
+	\end{enumerate}
+	\item Not enough disk space to store backup:
+	\begin{enumerate}
+ 		\item The process will be terminated.
+		\item An error message will be written to the log.
+	\end{enumerate}
+	\item Not enough disk space to store backup:
+	\begin{enumerate}
+ 		\item The process will be terminated.
+		\item An error message will be written to the log.
+		\item An email will be sent to the the appropriate administrator.
+	\end{enumerate}
+	\item Backup is interrupted mid-process:
+	\begin{enumerate}
+ 		\item The process will be terminated.
+		\item The files already written to disk will be removed.
+		\item An error message will be written to the log.
+	\end{enumerate}
+\end{enumerate}
+
+\\ \hline
+\end{tabular} 

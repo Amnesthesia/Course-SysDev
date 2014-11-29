@@ -1,0 +1,29 @@
+\subsection{Back-end}
+An application that works with such large amounts of data as EpisodeGuide, where data is also structured in a hierarchy (Channel \guillemotright Show \guillemotright Episode), calls for a database -- one that easily identifies relationships between entries, is fast to search through, and scales well since the amount of data starts out big and only keeps growing. 
+
+As any site that expects large volumes of traffic, reliability is highly important, and thus a quick web server running on a reliable operating system is required. When it comes to the application itself, it should be easily extensible in the future without requiring massive modification to the codebase. As such, modularity is important and therefore separation of components should be clear, and the back-end separate from the front-end. This is also the reason the back-end is separate from the front-end in this report.  
+
+
+%%
+%% CentOS
+%% MariaDB
+%% Nginx
+%% REST
+
+\subsubsection{Platform}
+With stability as a priority for the server operating system, Linux or FreeBSD seems like natural candidates, but as Linux is more commonly used by developers and thus more commonly supported, it becomes a natural choice. Determining the right distribution for a site that will be taking payments, security plays a huge role. Whereas Debian has a lot more packages in its package managing system and supports upgrading from one version to the next smoothly, CentOS comes with 10 years support and security patches, and generally has great support from vendors in the enterprise world what with it being a RHEL derivative. A major disadvantage of using CentOS over Debian is the lower amount of packages in its repositories, but this disadvantage pales in comparison to the benefits of a lengthy lifespan.
+ 
+\subsubsection{Database}
+When the application being developed is supposed to work with large sets of data that is interconnected -- where a TV show contains a set of episodes, which in turn contains a list of characters played by different actors, who in turn play other characters in other episodes of other TV shows -- one quickly realizes that a relational database may scale poorly.
+Instead, a graph database like Neo4j seems like a prominent candidate. Neo4j is one of the most popular graph databases today, and thus provides good support and documentation. Neo4j comes with a RESTful API, for which there also exists a PHP wrapper allowing which allows the application to be written in PHP, and whilst the front-end (as further explained in the front-end section) by default communicates with a RESTful API, writing the back-end as a middleware in PHP allows for future changes without having to modify the front-end code. Should the database system be changed in the future, the same queries can still be made from the front-end to retrieve data from the back-end.
+By using a graph database, we have the advantages of faster searches through large sets of data -- especially when it comes to depth searching, such as creating recommendations or finding what other TV-shows a character's actor has been in. 
+
+\subsubsection{Web Server}
+Apache has ruled the kingdom of web servers for a very long time, but in recent years, this king has been overthrown by competitors such as nginx, cherokee and lighttpd. Nginx provides very simple and highly modular configuration which follows CSS-like syntax, which makes configuration a breeze; and whilst lighttpd has a very low memory footprint in comparison to Apache, nginx still excels in benchmarks. For this reason, nginx has been chosen as the best web server for this project.
+
+\subsubsection{Web services and design pattern}
+The application as a whole follows a client-server design pattern, in that a front-end is a client communicating with the backend (server). This means that creating an app for a phone, tablet, or any other device really is just creating yet another front-end, and the front-end on the website really is just a front-end client hosted on the same server, which makes the system very flexible.
+
+The back-end should mainly operate through an API, parts of which should be open to the public. Modifications to the catalogue of TV shows should not be allowed by users with insufficient permissions, but finding and reading data should of course be available to anybody. For optimal flexibility and compatibility with potential future extensions either by the development team or by independent app developers, a RESTful API should be developed.
+A major advantage of using a RESTful API is that it fits perfectly with the HTTP protocols different states: PUT (update), POST (create), GET (read) and DELETE (remove), which lets the action be defined by the HTTP method. 
+SOAP and REST both have benefits, but REST is very simple to work with without requiring a special library or plugin.  

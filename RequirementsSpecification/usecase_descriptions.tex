@@ -1,0 +1,56 @@
+\subsubsection{Comments on Use Case Diagram}
+In the use case diagram we have five entities which make up the flow of the application.
+The user, and also the main entity, is the one that interacts with most of the parts of the application (exluding: backup system and administration).
+The administrator is the entity that adds data to the database (ie. new shows and/or episodes) or sends out newsletter.
+\\
+In our model we have one external entity; the payment system. This system allows the users to upgrade their account and pay their subscription fee directly via the web application.
+The application communicates with the payment backend (ie. Visa/Mastercard) over a secure channel.\\
+The backup system, as of today, only have one job; on regular intervals, make a backup of all the user accounts and associated data.
+
+
+\subsection{High level Use Case Descriptions}
+
+\begin{framed}
+\begin{tabular}{ l p{11cm}}
+  \textbf{Use Case} & Add show data \\
+  \textbf{Entity} & Admin \\
+  \textbf{Goal} & Keep the database up to date\\
+  \textbf{Description} & The administrator make sure the database is up to date with all the newest show and episode data. \\
+\end{tabular}
+\end{framed}
+
+\begin{framed}
+\begin{tabular}{ l p{11cm}}
+  \textbf{Use Case} & Backup \\
+  \textbf{Entity} & Backup, Admin \\
+  \textbf{Goal} & Make a copy of the database and keep the database safe.\\
+  \textbf{Description} & The database will make a backup on regular intervals, but the administrator can initiate a backup process whenever he wants. \\
+\end{tabular}
+\end{framed}
+
+\begin{framed}
+\begin{tabular}{ l p{11cm}}
+  \textbf{Use Case} & Newsletter \\
+  \textbf{Entity} & Admin \\
+  \textbf{Goal} & Sends newsletters to user. \\
+  \textbf{Description} & The administrator can, through the administration page, send newsletter/emails to his users. \\
+\end{tabular}
+\end{framed}
+
+\begin{framed}
+\begin{tabular}{ l p{11cm}}
+  \textbf{Use Case} & Subscribe \\
+  \textbf{Entity} & User \\
+  \textbf{Goal} & Subscribe to a member-only service.\\
+  \textbf{Description} & After a user has created an account, it is possible to subscribe to member-only services. The user will be prompted to pay a subscription fee which will be handled by Visa/Mastercard. All the data transfered between the client/server is encrypted (uses SSL/TLS). \\
+\end{tabular}
+\end{framed}
+
+\begin{framed}
+\begin{tabular}{ l p{11cm}}
+  \textbf{Use Case} & Browse \\
+  \textbf{Entity} & User \\
+  \textbf{Goal} & View information about tv shows.\\
+  \textbf{Description} & A registered user, as well as a non-registerered user, can use the application to find information about shows and episodes by searching the database. \\
+\end{tabular}
+\end{framed}

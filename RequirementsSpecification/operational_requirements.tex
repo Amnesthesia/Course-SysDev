@@ -1,0 +1,43 @@
+\subsection{Operational Requirements}
+
+\subsubsection*{Usability}
+\begin{itemize}
+\item Navigation should be the first thing apart from the logo that the user spots in the system
+\item It should be self-evident how to get to the desired part of a site (e.g., if user finds a show, it should be obvious how to get to a specific episode of that show)
+\item Reloading the page should not be necessary for small tasks such as subscribing to a show
+\item Signing up should not require more information from the user than is necessary, to encourage signing up and reduce amount of users who refrain from doing so
+\item Sharing content from the site to social media should be simple and preferably done with a single click without bloating the front-end with unnecessary icons
+\item The administrators should not need to re-learn everything. Since we are building this project on top of some existing code, the administrators should be able to do things the way they are used to.
+\item The layout should be clean and minimalistic.
+\end{itemize}
+
+\subsubsection*{Availability}
+\begin{itemize}
+\item The application should have an uptime of at least 99\% (i.e. 24 hours/day, every day of the year) to be able to compete with other actors on the market, and to be able to provide a reliable API for mobile applications and potential third parties who may want to access data. 
+\end{itemize}
+
+\subsubsection*{Reliability}
+\begin{itemize}
+\item If a bug is discovered it should be patched as soon as possible. This should not take more than 48 hours from the time of notification.
+\end{itemize}
+
+\subsubsection*{Performance}
+\begin{itemize}
+\item The user should be able to quickly get data from the database (i.e. minimal latency).
+\item The system should be able to handle 20.000 concurrent users with minimal delay.
+\item When a user searches for something in the database, the delay before getting the results should never exceed 3 seconds.
+\end{itemize}
+
+\subsubsection*{Environment}
+\begin{itemize}
+\item To meet the demands of straight-forward further development of the system in the future and reduce time it takes to get into the code for new developers in the future using a well documented and popular language as the basis of the site is the only sensible decision - and therefore PHP will be used to develop the web system, as it is the most widely used open source language on the web. 
+\item To be able to fulfull the performance goal of minimal latency and at the same time have a secure environment for the site to run in, a lightweight but secure web server with good performance should be used, i.e., nginx 
+\item This project will also take advantage of a few open source libraries to accomplish the performance and availability goals.
+\end{itemize}
+
+\subsubsection*{Security}
+\begin{itemize}
+\item Personal information should be kept safe and encrypted in the database. No person should be able to access and read this information.
+\item When a user pays the subscription fee, the data between the client and server should be transfered over a secure channel (i.e. SSL/TLS)
+\item A users payment information (e.g. creditcard numbers etc.) should not be saved in the database.
+\end{itemize}
